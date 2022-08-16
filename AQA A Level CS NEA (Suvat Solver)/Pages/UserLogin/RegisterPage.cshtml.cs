@@ -27,7 +27,6 @@ namespace AQA_A_Level_CS_NEA__Suvat_Solver_.Pages.UserLogin
 
         public void OnGet()
         {
-
         }
         public IActionResult OnPost()
         {
