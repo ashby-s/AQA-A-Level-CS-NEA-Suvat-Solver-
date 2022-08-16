@@ -1,5 +1,48 @@
 ﻿@page
 @model AQA_A_Level_CS_NEA__Suvat_Solver_.Pages.RevisionQuestions.RevisionQuestionsModel
 @{
+    /*var imagePath = "~/images/Pizzas/" + (@Model.ImageTitle + ".png");*/
 }
-<a class = " btn btn-outline-secondary small" style="float:right;" asp-route-Username=" @Model.Username" asp-page="/Home-LoggedIn"> Return to Home Page?</a>
+<a class = " btn btn-outline-secondary small" style="float:right;" asp-route-Username="@Model.Username" asp-page="/Home-LoggedIn"> Return to Home Page?</a>
+<div class="mt-5 mb-5 px-5 pt-5 pb-5 rounded-5 bg-light alert-light">
+    <h2>Practice Question Multiple-Choice:</h2>
+    <div class="text-center">
+        @if (@Model.nextquestion)
+        {
+            @*<img class="mt-5 mb-10" src=@imagePath class="w-200"/>*@
+            <a class="btn btn-primary mt-1 btn-lg m-5" asp-area="" asp-route-QuestCorrectAnsw="@Model.QuestCorrectAnsw"
+            asp-route-BtnAnswer="@Model.Answ1" asp-route-Username="@Model.Username" 
+            asp-route-nextquestion="false" asp-page="/RevisionQuestions/RevisionQuestions">@Model.Answ1 @Model.Unit</a>
+            <a class="btn btn-primary mt-1 btn-lg m-5" asp-area="" asp-route-QuestCorrectAnsw="@Model.QuestCorrectAnsw"
+            asp-route-BtnAnswer="@Model.Answ2" asp-route-Username="@Model.Username"
+            asp-route-nextquestion="false" asp-page="/RevisionQuestions/RevisionQuestions">@Model.Answ2  @Model.Unit</a>
+            <br />
+            <br />
+            <a class="btn btn-primary mt-1 btn-lg m-5" asp-area="" asp-route-QuestCorrectAnsw="@Model.QuestCorrectAnsw"
+            asp-route-BtnAnswer="@Model.Answ3" asp-route-Username="@Model.Username"
+            asp-route-nextquestion="false" asp-page="/RevisionQuestions/RevisionQuestions">@Model.Answ3  @Model.Unit</a>
+            <a class="btn btn-primary mt-1 btn-lg m-5" asp-area="" asp-route-QuestCorrectAnsw="@Model.QuestCorrectAnsw"
+            asp-route-BtnAnswer="@Model.Answ4" asp-route-Username="@Model.Username"
+            asp-route-nextquestion="false" asp-page="/RevisionQuestions/RevisionQuestions">@Model.Answ4  @Model.Unit</a>
+            <br />
+            <br />
+            <a class="btn btn-primary mt-1 btn-lg m-5" asp-area="" asp-route-QuestCorrectAnsw="@Model.QuestCorrectAnsw"
+            asp-route-BtnAnswer="@Model.Answ5" asp-route-Username="@Model.Username"
+            asp-route-nextquestion="false" asp-page="/RevisionQuestions/RevisionQuestions">@Model.Answ5  @Model.Unit</a>
+            <a class="btn btn-primary mt-1 btn-lg m-5" asp-area="" asp-route-QuestCorrectAnsw="@Model.QuestCorrectAnsw"
+            asp-route-BtnAnswer="@Model.Answ6" asp-route-Username="@Model.Username"
+            asp-route-nextquestion="false" asp-page="/RevisionQuestions/RevisionQuestions">@Model.Answ6  @Model.Unit</a>
+            <br />
+            <br />
+        }
+        else
+        {
+            @*Place to Indicate whether they were correct or not*@
+            
+            <form method="post" class="mt-5 mb-5 px-5 pt-5 pb-5 rounded-5 bg-light alert-light">
+                <button class="btn btn-primary mt-1 ms-5 btn-lg" type="submit">Next Question</button>
+            </form>
+        }
+
+    </div>
+</div>
