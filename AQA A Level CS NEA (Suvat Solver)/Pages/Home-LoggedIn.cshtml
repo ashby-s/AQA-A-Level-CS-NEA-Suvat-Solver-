@@ -1,0 +1,23 @@
+﻿@page
+@model AQA_A_Level_CS_NEA__Suvat_Solver_.Pages.Home_LoggedInModel
+@{
+
+}
+
+<div id="main-block" class="text-center">
+            <h2>Hey @Model.Username!</h2>
+            <h5 class="m-5">
+                Please Select Your What Feature to Use Below
+            </h5>
+            <a class="btn btn-primary mt-1 btn-lg m-5" asp-area=""  asp-route-Username=" @Model.Username" asp-page="/QuestionSolver/ValsSelect">Question Solver</a>
+            @*I would like to pass the variable 'Username' using these anchor tags *@
+            <a class="btn btn-primary mt-1 btn-lg m-5" asp-area=""  asp-route-Username=" @Model.Username" asp-page="/RevisionQuestions/RevisionQuestions">Revsion Questions</a>
+</div>
+
+<div id="sidebar">
+            <h2>Revision Question Stats:</h2>
+
+            <h5 class="mt-5 mb-5">Total Correct Answers: @Model.CorrectAnsw</h5>
+            <h5 class="mt-5 mb-5">Total Answered: @Model.TotalAnsw</h5>
+            
+</div>

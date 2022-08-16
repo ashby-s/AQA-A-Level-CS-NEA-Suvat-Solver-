@@ -1,0 +1,98 @@
+﻿@page
+@model AQA_A_Level_CS_NEA__Suvat_Solver_.Pages.QuestionSolver.EnterRecieveValsModel
+@{
+}
+<a class = " btn btn-outline-secondary small" style="float:right;" asp-route-Username=" @Model.Username" asp-page="/QuestionSolver/ValsSelect"> Select Other Values?</a>
+<a class = " btn btn-outline-secondary small" @*style="float:right;"*@ asp-route-Username=" @Model.Username" asp-page="/Home-LoggedIn"> Return to Home Page?</a>
+<form method="post" class="mt-5 mb-5 px-5 pt-5 pb-5 rounded-5 bg-light alert-light">
+        <h1>Select the Three Values to be Inputted</h1>
+        <div class="m-5">
+        @if (@Model.SUVATValuesSelect.SValSelect)
+        {
+                        <p>Displacement(S) (m) Value: <input type="number" step="any" asp-for="SUVATValues.SVal" placeholder="Displacement(S) Value" /></p>
+        }
+        @if (@Model.SUVATValuesSelect.UValSelect)
+        {
+                        <p>Initial Velocity(U) (m/s) Value: <input type="number" step="any" asp-for="SUVATValues.UVal" placeholder="Initial Velocity(U) Value" /></p>
+        }
+        @if (@Model.SUVATValuesSelect.VValSelect)
+        {
+                        <p>Final Velocity(V) (m/s) Value: <input type="number" step="any" asp-for="SUVATValues.VVal" placeholder="Final Velocity(V) Value" /></p>
+        }
+        @if (@Model.SUVATValuesSelect.AValSelect)
+        {
+                        <p>Acceleration(A) ((m/s²) Value: <input type="number" step="any" asp-for="SUVATValues.AVal" placeholder="Acceleration(A) Value" /></p>
+        }
+        @if (@Model.SUVATValuesSelect.TValSelect)
+        {
+                        <p>Time(T) (s) Value: <input type="number" step="any" asp-for="SUVATValues.TVal" placeholder="Time(T) Value" /></p>
+        }
+
+        </div>
+        @if (!@Model.correctvals)
+        {
+            <p class="errorText">Displacement(S) or Time(T) <b>cannot</b> be 0.</p>
+            <p class="errorText">Initial Velocity and Final Velocity <b>cannot</b> both be 0.</p>
+        }
+    <br />
+    <button class="btn btn-primary mt-1 ms-5" type="submit">Enter Values</button>
+    <br />
+    <br />
+ </form>
+@if (@Model.enteredvals)
+{
+            <div class="container mt-5 mb-5 px-5 pt-5 pb-5 rounded-5 bg-light alert-light">
+                <div class="m-5">
+            @if (!@Model.SUVATValuesSelect.SValSelect)
+            {
+                 <p>Displacement Value that was Calculated: @Model.SUVATValues.SVal Metres</p>
+                 @*<p>Method: @Model.SUVATMethods.SMethod</p>*@
+            }
+            @if (!@Model.SUVATValuesSelect.UValSelect)
+            {
+                @if (Double.IsNaN(Model.SUVATValues.UVal))
+                {
+                    <p>Value for Initial Velocity Cannot Be Calculated</p>
+                }
+                else
+                {
+                <p>Initial Velocity Value that was Calculated:@if(Model.quadraticcalc){<strong>±</strong>} @Model.SUVATValues.UVal Metres per Seconds</p>
+                 @*<p>Method: @Model.SUVATMethods.UMethod</p>*@
+                }
+            }
+            @if (!@Model.SUVATValuesSelect.VValSelect)
+            {
+                @if (Double.IsNaN(Model.SUVATValues.UVal))
+                {
+                    <p>Value for Final Velocity Cannot Be Calculated</p>
+                }
+                else
+                {
+                <p>Final Velocity Value that was Calculated:@if(Model.quadraticcalc){<strong>±</strong>} @Model.SUVATValues.VVal Metres per Seconds</p>
+                 @*<p>Method: @Model.SUVATMethods.VMethod</p>*@
+                }
+            }
+            @if (!@Model.SUVATValuesSelect.AValSelect)
+            {
+                 <p>Acceleration Value that was Calculated: @Model.SUVATValues.AVal Metres per Seconds²</p>
+                 @*<p>Method: @Model.SUVATMethods.AMethod</p>*@
+            }
+            @if (!@Model.SUVATValuesSelect.TValSelect)
+            {
+                @if (Double.IsNaN(Model.SUVATValues.UVal))
+                {
+                    <p>Value for Time Cannot Be Calculated</p>
+                }
+                else
+                {
+                <p>Time Value that was Calculated: @Model.SUVATValues.TVal Seconds</p>                         
+                @if(Model.quadraticcalc)
+                {
+                    <p>Second Time Value that was Calculated: @Model.SecondTVal Seconds</p>
+                }
+                @*<p>Method: @Model.SUVATMethods.TMethod</p>*@
+                }          
+            }
+                </div>
+            </div>
+}

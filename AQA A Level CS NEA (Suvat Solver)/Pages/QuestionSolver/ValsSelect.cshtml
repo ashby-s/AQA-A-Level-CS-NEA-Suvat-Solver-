@@ -1,0 +1,24 @@
+﻿@page
+@model AQA_A_Level_CS_NEA__Suvat_Solver_.Pages.QuestionSolver.QuestionSolverModel
+@{
+}
+
+<a class = " btn btn-outline-secondary small" style="float:right;" asp-route-Username=" @Model.Username" asp-page="/Home-LoggedIn"> Return to Home Page?</a>
+<form method="post" class="mt-5 mb-5 px-5 pt-5 pb-5 rounded-5 bg-light alert-light">
+        <h1>Select the Three Values to be Inputted</h1>
+        <div class="m-5">
+            <input class="mt-2" type="checkbox" asp-for="SUVATValuesSelect.SValSelect" placeholder="SValSelect" />  S (Displacement) <br />
+            <input class="mt-2" type="checkbox" asp-for="SUVATValuesSelect.UValSelect" placeholder="UValSelect" />  U (Displacement) <br />
+            <input class="mt-2" type="checkbox" asp-for="SUVATValuesSelect.VValSelect" placeholder="VValSelect" />  V (Displacement) <br />
+            <input class="mt-2" type="checkbox" asp-for="SUVATValuesSelect.AValSelect" placeholder="AValSelect" />  A (Displacement) <br />
+            <input class="mt-2" type="checkbox" asp-for="SUVATValuesSelect.TValSelect" placeholder="TValSelect" />  T (Displacement) <br />
+        </div>
+    @if (!(@Model.correctnumval))
+    {
+        <p class="errorText">Please select only <b>three</b> options</p>
+    }
+    <br />
+    <button class="btn btn-primary mt-1 ms-5" type="submit">Enter Values</button>
+    <br />
+    <br />
+ </form>
