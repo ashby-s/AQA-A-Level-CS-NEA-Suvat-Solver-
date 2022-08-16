@@ -22,25 +22,6 @@ namespace AQA_A_Level_CS_NEA__Suvat_Solver_.Pages
         
         public void OnGet()
         {
-            //Fix this to a less 'roundabout' way for removing extra spaces from start
-            int UserLength;
-            string PlaceHoldUsername;
-            string firstchar = Username.Substring(0, 1);
-            string curchar;
-            while (firstchar == " ")
-            {
-                UserLength = Username.Length;
-                PlaceHoldUsername = "";
-                for (int i = 1; i < UserLength; i++)
-                {
-                    curchar = Username.Substring(i, 1);
-
-                    PlaceHoldUsername = PlaceHoldUsername + curchar;
-                }
-                Username = PlaceHoldUsername;
-                firstchar = Username.Substring(0, 1);
-            }
-            //To Here
             User User = new User();
             var CorrectUser = _context.User.FirstOrDefault(x => x.UserName == Username);
             CorrectAnsw = CorrectUser.UserCorrectAnsw;

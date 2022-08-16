@@ -37,7 +37,16 @@ namespace AQA_A_Level_CS_NEA__Suvat_Solver_.Pages.UserLogin
             ValidUsername = true;
             SubjectChosen = true;
             UserList = _context.User.ToList();
-            int UserLength = TempUser.Username.Length;
+            int UserLength;
+
+            //Temp fix
+            if(TempUser.Username == null)
+            { UserLength = 0; 
+            }
+            else
+            {
+              UserLength = TempUser.Username.Length;
+            }
 
             for (int i = 2; i < UserLength; i++)
             {

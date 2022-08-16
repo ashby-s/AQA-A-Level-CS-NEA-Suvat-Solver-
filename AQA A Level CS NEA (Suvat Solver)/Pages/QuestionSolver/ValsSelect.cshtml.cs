@@ -16,7 +16,6 @@ namespace AQA_A_Level_CS_NEA__Suvat_Solver_.Pages.QuestionSolver
 
         public void OnGet()
         {
-            Username = Username.Remove(0, 1);
         }
         
         public IActionResult OnPost()
