@@ -13,18 +13,18 @@
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Question>()
-            .HasKey(c => c.QuestId);
             modelBuilder.Entity<UsertoCourses>()
             .HasKey(c => new { c.UserId, c.CourseId });
             modelBuilder.Entity<QuestiontoCourses>()
-            .HasKey(c => new { c.QuestId, c.CourseId });
+            .HasKey(c => new { c.QuestionId, c.CourseId });
         }
+
 
         public DbSet<User> User { get; set; }
         public DbSet<Course> Courses { get; set; }
         public DbSet<Question> Question { get; set; }
         public DbSet<UsertoCourses> UsertoCourses { get; set; }
+
         public DbSet<QuestiontoCourses> QuestiontoCourses { get; set; }
     }
 }

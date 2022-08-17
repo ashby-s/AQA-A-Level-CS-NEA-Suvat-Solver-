@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AQA_A_Level_CS_NEA__Suvat_Solver_.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220811055912_QuestionCourseRelation")]
-    partial class QuestionCourseRelation
+    [Migration("20220817064337_QuestionEntity-And-QuestiontoCoursesRelation")]
+    partial class QuestionEntityAndQuestiontoCoursesRelation
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -42,11 +42,11 @@ namespace AQA_A_Level_CS_NEA__Suvat_Solver_.Migrations
 
             modelBuilder.Entity("AQA_A_Level_CS_NEA__Suvat_Solver_.Models.Question", b =>
                 {
-                    b.Property<int>("QuestId")
+                    b.Property<int>("QuestionId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("QuestId"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("QuestionId"), 1L, 1);
 
                     b.Property<float>("AnswTrue")
                         .HasColumnType("real");
@@ -67,27 +67,22 @@ namespace AQA_A_Level_CS_NEA__Suvat_Solver_.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("QuestId");
+                    b.HasKey("QuestionId");
 
                     b.ToTable("Question");
                 });
 
             modelBuilder.Entity("AQA_A_Level_CS_NEA__Suvat_Solver_.Models.QuestiontoCourses", b =>
                 {
-                    b.Property<int>("QuestId")
+                    b.Property<int>("QuestionId")
                         .HasColumnType("int");
 
                     b.Property<int>("CourseId")
                         .HasColumnType("int");
 
-                    b.Property<int>("QuestionQuestId")
-                        .HasColumnType("int");
-
-                    b.HasKey("QuestId", "CourseId");
+                    b.HasKey("QuestionId", "CourseId");
 
                     b.HasIndex("CourseId");
-
-                    b.HasIndex("QuestionQuestId");
 
                     b.ToTable("QuestiontoCourses");
                 });
@@ -144,7 +139,7 @@ namespace AQA_A_Level_CS_NEA__Suvat_Solver_.Migrations
 
                     b.HasOne("AQA_A_Level_CS_NEA__Suvat_Solver_.Models.Question", "Question")
                         .WithMany("QuestiontoCourses")
-                        .HasForeignKey("QuestionQuestId")
+                        .HasForeignKey("QuestionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
