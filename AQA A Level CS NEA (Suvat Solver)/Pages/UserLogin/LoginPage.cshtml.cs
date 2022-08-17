@@ -8,9 +8,8 @@ namespace AQA_A_Level_CS_NEA__Suvat_Solver_.Pages.UserLogin
     [BindProperties(SupportsGet = true)]
     public class LoginPageModel : PageModel
     {
-
-
-        public new TempUserLoginModel TempUser { get; set; }
+        public string TempUsername { get; set; }
+        public string TempPassword { get; set; }
         public bool HasPassword { get; set; } = true;
         public bool HasUsername { get; set; } = true;
         public bool IncorUsername { get; set; } = false;
@@ -23,7 +22,6 @@ namespace AQA_A_Level_CS_NEA__Suvat_Solver_.Pages.UserLogin
         {
             _context = context;
         }
-        public List<User> UserList = new List<User>();
 
         public void OnGet()
         {
@@ -31,22 +29,20 @@ namespace AQA_A_Level_CS_NEA__Suvat_Solver_.Pages.UserLogin
         }
         public IActionResult OnPost()
         {
-            User User = new User();
             HasPassword = true;
             HasUsername = true;
             IncorUsername = false;
-            UserList = _context.User.ToList();
 
-            if (string.IsNullOrWhiteSpace(TempUser.Password))
+            if (string.IsNullOrWhiteSpace(TempPassword))
             {
                 HasPassword = false;
             }
-            if (string.IsNullOrWhiteSpace(TempUser.Username))
+            if (string.IsNullOrWhiteSpace(TempUsername))
             {
                 HasUsername = false;
             }
 
-            var foundUser = _context.User.FirstOrDefault(x => x.UserName == TempUser.Username && x.UserPass == TempUser.Password);
+            var foundUser = _context.User.FirstOrDefault(x => x.UserName == TempUsername && x.UserPass == TempPassword);
 
             if (foundUser != null)
             {
@@ -69,7 +65,7 @@ namespace AQA_A_Level_CS_NEA__Suvat_Solver_.Pages.UserLogin
             }
             else
             {
-                return RedirectToPage("/Home-LoggedIn", new { TempUser.Username });
+                return RedirectToPage("/Home-LoggedIn", new { foundUser.UserId });
             };
         }
     }

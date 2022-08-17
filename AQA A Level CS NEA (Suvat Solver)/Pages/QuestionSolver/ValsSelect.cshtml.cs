@@ -9,7 +9,7 @@ namespace AQA_A_Level_CS_NEA__Suvat_Solver_.Pages.QuestionSolver
     public class QuestionSolverModel : PageModel
     {
         
-        public String Username { get; set; }
+        public int UserId { get; set; }
         public SUVATValuesSelect SUVATValuesSelect { get; set; }
         public bool correctnumval { get; set; } = true;
 
@@ -30,12 +30,12 @@ namespace AQA_A_Level_CS_NEA__Suvat_Solver_.Pages.QuestionSolver
             if(totalvals != 3)
             {
                 correctnumval = false;
-                return RedirectToPage("/QuestionSolver/ValsSelect", new {correctnumval, Username});
+                return RedirectToPage("/QuestionSolver/ValsSelect", new {correctnumval, UserId});
             }
             else
             {
                 return RedirectToPage("EnterRecieveVals", new { SUVATValuesSelect.SValSelect, SUVATValuesSelect.UValSelect,
-                    SUVATValuesSelect.VValSelect, SUVATValuesSelect.AValSelect, SUVATValuesSelect.TValSelect, Username});
+                    SUVATValuesSelect.VValSelect, SUVATValuesSelect.AValSelect, SUVATValuesSelect.TValSelect, UserId});
             }
 
         }

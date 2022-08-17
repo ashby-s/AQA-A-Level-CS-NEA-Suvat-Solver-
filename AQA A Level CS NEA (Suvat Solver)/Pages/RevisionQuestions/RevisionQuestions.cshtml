@@ -1,42 +1,72 @@
 ﻿@page
 @model AQA_A_Level_CS_NEA__Suvat_Solver_.Pages.RevisionQuestions.RevisionQuestionsModel
 @{
-    /*var imagePath = "~/images/Pizzas/" + (@Model.ImageTitle + ".png");*/
+    var imagePath = "~/images/" + (@Model.TempQuestDetails + ".png");
 }
-<a class = " btn btn-outline-secondary small" style="float:right;" asp-route-Username="@Model.Username" asp-page="/Home-LoggedIn"> Return to Home Page?</a>
+<a class = " btn btn-outline-secondary small" style="float:right;" asp-route-UserId="@Model.UserId" asp-page="/Home-LoggedIn"> Return to Home Page?</a>
 <div class="mt-5 mb-5 px-5 pt-5 pb-5 rounded-5 bg-light alert-light">
+    @{}
     <h2>Practice Question Multiple-Choice:</h2>
     <div class="text-center">
         @if (@Model.nextquestion)
         {
-            @*<img class="mt-5 mb-10" src=@imagePath class="w-200"/>*@
-            <a class="btn btn-primary mt-1 btn-lg m-5" asp-area="" asp-route-QuestCorrectAnsw="@Model.QuestCorrectAnsw"
-            asp-route-BtnAnswer="@Model.Answ1" asp-route-Username="@Model.Username" 
+            @if(Model.TempQuestDiff == "Easy")
+            {
+                <p class="mt-5 mb-5 rounded-5 bg-success alert-light text-white">Difficulty : Easy</p>
+            }
+            else if(Model.TempQuestDiff == "Moderate")
+            {
+                <p class="mt-5 mb-5 rounded-5 bg-warning alert-light text-white">Difficulty : Moderate</p>
+            }
+            else
+            {
+                <p class="mt-5 mb-5 rounded-5 bg-danger alert-light text-white">Difficulty : Hard</p>
+            }
+            <img class="mainImage mb-5" src= "@imagePath" asp-append-version="true" />
+            <br />
+            <a class="btn btn-primary mt-1 btn-lg m-5" asp-area="" asp-route-TempQuestId="@Model.TempQuestId"
+            asp-route-BtnAnswer="@Model.Answ1" asp-route-UserId="@Model.UserId" 
             asp-route-nextquestion="false" asp-page="/RevisionQuestions/RevisionQuestions">@Model.Answ1 @Model.Unit</a>
-            <a class="btn btn-primary mt-1 btn-lg m-5" asp-area="" asp-route-QuestCorrectAnsw="@Model.QuestCorrectAnsw"
-            asp-route-BtnAnswer="@Model.Answ2" asp-route-Username="@Model.Username"
+            <a class="btn btn-primary mt-1 btn-lg m-5" asp-area="" asp-route-TempQuestId="@Model.TempQuestId"
+            asp-route-BtnAnswer="@Model.Answ2" asp-route-UserId="@Model.UserId"
             asp-route-nextquestion="false" asp-page="/RevisionQuestions/RevisionQuestions">@Model.Answ2  @Model.Unit</a>
             <br />
             <br />
-            <a class="btn btn-primary mt-1 btn-lg m-5" asp-area="" asp-route-QuestCorrectAnsw="@Model.QuestCorrectAnsw"
-            asp-route-BtnAnswer="@Model.Answ3" asp-route-Username="@Model.Username"
+            <a class="btn btn-primary mt-1 btn-lg m-5" asp-area="" asp-route-TempQuestId="@Model.TempQuestId"
+            asp-route-BtnAnswer="@Model.Answ3" asp-route-UserId="@Model.UserId"
             asp-route-nextquestion="false" asp-page="/RevisionQuestions/RevisionQuestions">@Model.Answ3  @Model.Unit</a>
-            <a class="btn btn-primary mt-1 btn-lg m-5" asp-area="" asp-route-QuestCorrectAnsw="@Model.QuestCorrectAnsw"
-            asp-route-BtnAnswer="@Model.Answ4" asp-route-Username="@Model.Username"
+            <a class="btn btn-primary mt-1 btn-lg m-5" asp-area="" asp-route-TempQuestId="@Model.TempQuestId"
+            asp-route-BtnAnswer="@Model.Answ4" asp-route-UserId="@Model.UserId"
             asp-route-nextquestion="false" asp-page="/RevisionQuestions/RevisionQuestions">@Model.Answ4  @Model.Unit</a>
             <br />
             <br />
-            <a class="btn btn-primary mt-1 btn-lg m-5" asp-area="" asp-route-QuestCorrectAnsw="@Model.QuestCorrectAnsw"
-            asp-route-BtnAnswer="@Model.Answ5" asp-route-Username="@Model.Username"
+            <a class="btn btn-primary mt-1 btn-lg m-5" asp-area="" asp-route-TempQuestId="@Model.TempQuestId"
+            asp-route-BtnAnswer="@Model.Answ5" asp-route-UserId="@Model.UserId"
             asp-route-nextquestion="false" asp-page="/RevisionQuestions/RevisionQuestions">@Model.Answ5  @Model.Unit</a>
-            <a class="btn btn-primary mt-1 btn-lg m-5" asp-area="" asp-route-QuestCorrectAnsw="@Model.QuestCorrectAnsw"
-            asp-route-BtnAnswer="@Model.Answ6" asp-route-Username="@Model.Username"
+            <a class="btn btn-primary mt-1 btn-lg m-5" asp-area="" asp-route-TempQuestId="@Model.TempQuestId"
+            asp-route-BtnAnswer="@Model.Answ6" asp-route-UserId="@Model.UserId"
             asp-route-nextquestion="false" asp-page="/RevisionQuestions/RevisionQuestions">@Model.Answ6  @Model.Unit</a>
             <br />
             <br />
         }
         else
         {
+
+            @if (Model.answvalid)
+            {
+                <h4 class="text-white bg-success">Your Answer was Correct!</h4>
+            }
+            else
+            {
+                <h4 class="text-white bg-danger">Your Answer was Incorrect</h4>
+            }
+
+            <div class="mt-5 mb-5 px-5 pt-5 pb-5 rounded-5 bg-secondary alert-light text-white">
+                <h5>Solution for this Question:</h5>
+                <p class="largeText">@Model.TempQuestSolved</p>
+
+            </div>
+
             @*Place to Indicate whether they were correct or not*@
             
             <form method="post" class="mt-5 mb-5 px-5 pt-5 pb-5 rounded-5 bg-light alert-light">

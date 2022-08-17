@@ -9,7 +9,8 @@ namespace AQA_A_Level_CS_NEA__Suvat_Solver_.Pages.UserLogin
     public class RegisterPageModel : PageModel
     {
 
-        public new TempUserLoginModel TempUser { get; set; }
+        public string TempUsername { get; set; }
+        public string TempPassword { get; set; }
         public bool HasPassword { get; set; } = true;
         public bool HasUsername { get; set; } = true;
         public bool ValidUsername { get; set; } = true;
@@ -40,17 +41,17 @@ namespace AQA_A_Level_CS_NEA__Suvat_Solver_.Pages.UserLogin
             int UserLength;
 
             //Temp fix
-            if(TempUser.Username == null)
+            if(TempUsername == null)
             { UserLength = 0; 
             }
             else
             {
-              UserLength = TempUser.Username.Length;
+              UserLength = TempUsername.Length;
             }
 
             for (int i = 2; i < UserLength; i++)
             {
-                string curchar = TempUser.Username.Substring(i, 1);
+                string curchar = TempUsername.Substring(i, 1);
 
                 if(curchar==" ")
                 {
@@ -62,15 +63,15 @@ namespace AQA_A_Level_CS_NEA__Suvat_Solver_.Pages.UserLogin
             {
                 SubjectChosen = false;
             }
-            if (string.IsNullOrWhiteSpace(TempUser.Password) || TempUser.Password.Length < 4)
+            if (string.IsNullOrWhiteSpace(TempPassword) || TempPassword.Length < 4)
             {
                 HasPassword = false;
             }
-            if (string.IsNullOrWhiteSpace(TempUser.Username) || TempUser.Username.Length < 4)
+            if (string.IsNullOrWhiteSpace(TempUsername) || TempUsername.Length < 4)
             {
                 HasUsername = false;
             }
-            if (UserList.Any(x => x.UserName == TempUser.Username))
+            if (UserList.Any(x => x.UserName == TempUsername))
             {
                 ValidUsername = false;
             }
@@ -81,8 +82,8 @@ namespace AQA_A_Level_CS_NEA__Suvat_Solver_.Pages.UserLogin
             else
             {
                 RegisterApproved = true;
-                User.UserName = TempUser.Username;
-                User.UserPass = TempUser.Password;
+                User.UserName = TempUsername;
+                User.UserPass = TempPassword;
                 User.UserCorrectAnsw = 0;
                 User.UserTotalAnsw = 0;
                 _context.User.Add(User);
@@ -90,7 +91,7 @@ namespace AQA_A_Level_CS_NEA__Suvat_Solver_.Pages.UserLogin
 
                 if (AQAMaths)
                 {
-                    var CorrectUser = _context.User.FirstOrDefault(x => x.UserName == TempUser.Username);
+                    var CorrectUser = _context.User.FirstOrDefault(x => x.UserName == TempUsername);
                     UsertoCourses.UserId = CorrectUser.UserId;
                     UsertoCourses.CourseId = 1;
                     _context.UsertoCourses.Add(UsertoCourses);
@@ -99,7 +100,7 @@ namespace AQA_A_Level_CS_NEA__Suvat_Solver_.Pages.UserLogin
                 }
                 if (AQAPhys)
                 {
-                    var CorrectUser = _context.User.FirstOrDefault(x => x.UserName == TempUser.Username);
+                    var CorrectUser = _context.User.FirstOrDefault(x => x.UserName == TempUsername);
                     UsertoCourses.UserId = CorrectUser.UserId;
                     UsertoCourses.CourseId = 2;
                     _context.UsertoCourses.Add(UsertoCourses);

@@ -2,8 +2,8 @@
 @model AQA_A_Level_CS_NEA__Suvat_Solver_.Pages.QuestionSolver.EnterRecieveValsModel
 @{
 }
-<a class = " btn btn-outline-secondary small" style="float:right;" asp-route-Username="@Model.Username" asp-page="/QuestionSolver/ValsSelect"> Select Other Values?</a>
-<a class = " btn btn-outline-secondary small" @*style="float:right;"*@ asp-route-Username="@Model.Username" asp-page="/Home-LoggedIn"> Return to Home Page?</a>
+<a class = " btn btn-outline-secondary small" style="float:right;" asp-route-UserId="@Model.UserId" asp-page="/QuestionSolver/ValsSelect"> Select Other Values?</a>
+<a class = " btn btn-outline-secondary small" asp-route-UserId="@Model.UserId" asp-page="/Home-LoggedIn"> Return to Home Page?</a>
 <form method="post" class="mt-5 mb-5 px-5 pt-5 pb-5 rounded-5 bg-light alert-light">
         <h1>Select the Three Values to be Inputted</h1>
         <div class="m-5">

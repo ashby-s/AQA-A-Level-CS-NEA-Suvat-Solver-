@@ -7,7 +7,7 @@ namespace AQA_A_Level_CS_NEA__Suvat_Solver_.Pages.QuestionSolver
     [BindProperties(SupportsGet = true)]
     public class EnterRecieveValsModel : PageModel
     {
-        public String Username { get; set; }
+        public int UserId { get; set; }
         public SUVATValuesSelect SUVATValuesSelect { get; set; }
         public SUVATValues SUVATValues { get; set; }
         public bool enteredvals { get; set; } = false;
@@ -40,7 +40,7 @@ namespace AQA_A_Level_CS_NEA__Suvat_Solver_.Pages.QuestionSolver
                     SUVATValuesSelect.TValSelect,
                     enteredvals,
                     correctvals,
-                    Username
+                    UserId
                 });
             }
             enteredvals = true;
@@ -123,7 +123,7 @@ namespace AQA_A_Level_CS_NEA__Suvat_Solver_.Pages.QuestionSolver
                 //SUVATMethods.TMethod,
                 quadraticcalc,
                 enteredvals,
-                Username
+                UserId
             });
         }
     }
