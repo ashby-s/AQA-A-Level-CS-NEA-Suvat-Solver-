@@ -2,6 +2,7 @@
 {
     public class SUVATMethods
     {
+        //Make Local
         public string SMethod { get; set; } 
         public string UMethod { get; set; } 
         public string VMethod { get; set; } 

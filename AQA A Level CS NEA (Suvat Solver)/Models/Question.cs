@@ -2,7 +2,7 @@
 {
     public class Question
     {
-        public int QuestId { get; set; }
+        public int QuestionId { get; set; }
 
         public string Difficulty { get; set; }
         public char AnswType { get; set; }

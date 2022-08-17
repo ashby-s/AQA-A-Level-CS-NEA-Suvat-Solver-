@@ -2,6 +2,7 @@
 {
     public class SUVATValuesSelect
     {
+        //Make Local
         public bool SValSelect { get; set; }
         public bool UValSelect { get; set; }
         public bool VValSelect { get; set; }
