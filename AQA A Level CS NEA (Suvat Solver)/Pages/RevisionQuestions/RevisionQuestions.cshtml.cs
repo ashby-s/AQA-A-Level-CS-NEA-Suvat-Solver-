@@ -180,11 +180,15 @@ namespace AQA_A_Level_CS_NEA__Suvat_Solver_.Pages.RevisionQuestions
                 if (QuestCorrectAnsw == BtnAnswer)
                 {
                     answvalid = true;
+                    CorrectUser.UserCorrectAnsw = CorrectUser.UserCorrectAnsw + 1;
                 }
                 else
                 {
                     answvalid = false;
                 }
+                CorrectUser.UserTotalAnsw = CorrectUser.UserTotalAnsw + 1;
+                _context.User.Update(CorrectUser);
+                _context.SaveChanges();
             }
         }
         public IActionResult OnPost()
