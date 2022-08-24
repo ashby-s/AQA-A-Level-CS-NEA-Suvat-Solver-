@@ -7,11 +7,12 @@
 <form method="post" class="mt-5 mb-5 px-5 pt-5 pb-5 rounded-5 bg-light alert-light">
         <h1>Select the Three Values to be Inputted</h1>
         <div class="m-5">
+               @*Update*@
             <input class="mt-2" type="checkbox" asp-for="SUVATValuesSelect.SValSelect" placeholder="SValSelect" />  S (Displacement) <br />
-            <input class="mt-2" type="checkbox" asp-for="SUVATValuesSelect.UValSelect" placeholder="UValSelect" />  U (Displacement) <br />
-            <input class="mt-2" type="checkbox" asp-for="SUVATValuesSelect.VValSelect" placeholder="VValSelect" />  V (Displacement) <br />
-            <input class="mt-2" type="checkbox" asp-for="SUVATValuesSelect.AValSelect" placeholder="AValSelect" />  A (Displacement) <br />
-            <input class="mt-2" type="checkbox" asp-for="SUVATValuesSelect.TValSelect" placeholder="TValSelect" />  T (Displacement) <br />
+            <input class="mt-2" type="checkbox" asp-for="SUVATValuesSelect.UValSelect" placeholder="UValSelect" />  U (Initial Velocity) <br />
+            <input class="mt-2" type="checkbox" asp-for="SUVATValuesSelect.VValSelect" placeholder="VValSelect" />  V (Final Velocity) <br />
+            <input class="mt-2" type="checkbox" asp-for="SUVATValuesSelect.AValSelect" placeholder="AValSelect" />  A (Acceleratiom) <br />
+            <input class="mt-2" type="checkbox" asp-for="SUVATValuesSelect.TValSelect" placeholder="TValSelect" />  T (Time) <br />
         </div>
     @if (!(@Model.correctnumval))
     {
