@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using AQA_A_Level_CS_NEA__Suvat_Solver_.Models;
 using AQA_A_Level_CS_NEA__Suvat_Solver_.Data;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace AQA_A_Level_CS_NEA__Suvat_Solver_.Pages.UserLogin
 {
@@ -14,6 +16,7 @@ namespace AQA_A_Level_CS_NEA__Suvat_Solver_.Pages.UserLogin
         public bool HasUsername { get; set; } = true;
         public bool IncorUsername { get; set; } = false;
         public bool LoginApproved { get; set; }
+        public bool ValidationFailed { get; set; }
 
         public bool RegisterApproved { get; set; }
 
@@ -32,41 +35,45 @@ namespace AQA_A_Level_CS_NEA__Suvat_Solver_.Pages.UserLogin
             HasPassword = true;
             HasUsername = true;
             IncorUsername = false;
+            ValidationFailed = false;
 
-            if (string.IsNullOrWhiteSpace(TempPassword))
-            {
-                HasPassword = false;
-            }
             if (string.IsNullOrWhiteSpace(TempUsername))
             {
                 HasUsername = false;
             }
+            if (string.IsNullOrWhiteSpace(TempPassword))
+            {
+                HasPassword = false;
+            }
 
-            var foundUser = _context.User.FirstOrDefault(x => x.UserName == TempUsername && x.UserPass == TempPassword);
+            string HashedPassword;
+            HashedPassword = HashPassword(TempPassword, TempUsername);
+
+            var foundUser = _context.User.FirstOrDefault(x => x.UserName == TempUsername && x.UserPass == HashedPassword);
 
             if (foundUser != null)
             {
                 LoginApproved = true;
             }
-
-            //if (foundUser != null && foundUser.UserPass == TempUser.Password)
-            //{
-            //    LoginApproved = true;
-            //}
-
             else
             {
-                IncorUsername = true;
-                HasPassword = false;
+                ValidationFailed = true;
             }
             if (!HasPassword || !HasUsername || foundUser == null)
             {
-                return RedirectToPage("/UserLogin/LoginPage", new { HasPassword, HasUsername, IncorUsername });
+                return RedirectToPage("/UserLogin/LoginPage", new { HasPassword, HasUsername, IncorUsername, ValidationFailed });
             }
             else
             {
                 return RedirectToPage("/Home-LoggedIn", new { foundUser.UserId });
             };
+        }
+        public string HashPassword(string Password, string Username)
+        {
+            using var sha = SHA256.Create();
+            var AsBytes = Encoding.Default.GetBytes(Password + Username);
+            var hashed = sha.ComputeHash(AsBytes);
+            return Convert.ToBase64String(hashed);
         }
     }
 }

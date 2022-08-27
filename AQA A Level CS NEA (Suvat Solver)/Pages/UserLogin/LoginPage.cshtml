@@ -5,20 +5,24 @@
 <div class="text-center container">
     @if (@Model.RegisterApproved)
     {
-            <p class="successText">Registration Successful. Please Log In.</p>
+                <p class="successText">Registration Successful. Please Log In.</p>
     }
     <form method="post" class="mt-5 mb-5 px-5 pt-5 pb-5 rounded-5 bg-light alert-light">
      <h2 class="mb-5">Login into your SUVAT Solver Account</h2>
      <hr />
      <p>Username: <input type="text" asp-for="TempUsername" placeholder="Enter your Username" /></p>
-        @if (@Model.HasUsername == false || @Model.IncorUsername == true)
+        @if (!@Model.HasUsername|| @Model.IncorUsername)
         {
-                <p class="errorText">Username is not valid</p>
+                    <p class="errorText">Username is not valid</p>
         }
         <p>Password: <input type="password" asp-for="TempPassword" placeholder="Enter your Password" /></p>
-        @if (@Model.HasPassword == false)
+        @if (!@Model.HasPassword)
         {
-                <p class="errorText">Password is not valid</p>
+                    <p class="errorText">Password is not valid</p>
+        }
+        @if (@Model.ValidationFailed)
+        {
+                    <p class="errorText">Credentials entered are incorrect</p>
         }
      <button class="btn btn-primary mt-1" type="submit">Login</button>
      <br />

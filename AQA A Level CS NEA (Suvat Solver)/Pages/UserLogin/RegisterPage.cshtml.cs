@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using AQA_A_Level_CS_NEA__Suvat_Solver_.Models;
 using AQA_A_Level_CS_NEA__Suvat_Solver_.Data;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace AQA_A_Level_CS_NEA__Suvat_Solver_.Pages.UserLogin
 {
@@ -11,9 +13,11 @@ namespace AQA_A_Level_CS_NEA__Suvat_Solver_.Pages.UserLogin
 
         public string TempUsername { get; set; }
         public string TempPassword { get; set; }
+        public string TempPassword2 { get; set; }
         public bool HasPassword { get; set; } = true;
         public bool HasUsername { get; set; } = true;
         public bool ValidUsername { get; set; } = true;
+        public bool ValidPassword { get; set; } = true;
         public bool RegisterApproved { get; set; } = false;
         public bool AQAPhys { get; set; } = false;
         public bool AQAMaths { get; set; } = false;
@@ -36,6 +40,7 @@ namespace AQA_A_Level_CS_NEA__Suvat_Solver_.Pages.UserLogin
             HasPassword = true;
             HasUsername = true;
             ValidUsername = true;
+            ValidPassword = true;
             SubjectChosen = true;
             UserList = _context.User.ToList();
             int UserLength;
@@ -55,7 +60,7 @@ namespace AQA_A_Level_CS_NEA__Suvat_Solver_.Pages.UserLogin
 
                 if(curchar==" ")
                 {
-                    ValidUsername = false;
+                    HasUsername = false;
                 }
             }
 
@@ -71,19 +76,25 @@ namespace AQA_A_Level_CS_NEA__Suvat_Solver_.Pages.UserLogin
             {
                 HasUsername = false;
             }
+            if (TempPassword != TempPassword2)
+            {
+                ValidPassword = false;
+            }
             if (UserList.Any(x => x.UserName == TempUsername))
             {
                 ValidUsername = false;
             }
             if (!HasPassword || !HasUsername || !ValidUsername || !SubjectChosen)
             {
-                return RedirectToPage("/UserLogin/RegisterPage", new { HasPassword, HasUsername, ValidUsername, SubjectChosen });
+                return RedirectToPage("/UserLogin/RegisterPage", new { HasPassword, HasUsername, ValidUsername, ValidPassword, SubjectChosen });
             }
             else
             {
+                string HashedPassword = HashPassword(TempPassword, TempUsername);
+
                 RegisterApproved = true;
                 User.UserName = TempUsername;
-                User.UserPass = TempPassword;
+                User.UserPass = HashedPassword;
                 User.UserCorrectAnsw = 0;
                 User.UserTotalAnsw = 0;
                 _context.User.Add(User);
@@ -109,6 +120,14 @@ namespace AQA_A_Level_CS_NEA__Suvat_Solver_.Pages.UserLogin
 
                 return RedirectToPage("/UserLogin/LoginPage", new { RegisterApproved });
             }
+        }
+
+        public string HashPassword(string Password, string Username)
+        {
+            using var sha = SHA256.Create();
+            var AsBytes = Encoding.Default.GetBytes(Password+Username);
+            var hashed = sha.ComputeHash(AsBytes);
+            return Convert.ToBase64String(hashed);
         }
     }
 }
