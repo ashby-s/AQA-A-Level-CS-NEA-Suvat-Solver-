@@ -14,8 +14,6 @@ namespace AQA_A_Level_CS_NEA__Suvat_Solver_.Pages.UserLogin
         public string TempPassword { get; set; }
         public bool HasPassword { get; set; } = true;
         public bool HasUsername { get; set; } = true;
-        public bool IncorUsername { get; set; } = false;
-        public bool LoginApproved { get; set; }
         public bool ValidationFailed { get; set; }
 
         public bool RegisterApproved { get; set; }
@@ -34,7 +32,6 @@ namespace AQA_A_Level_CS_NEA__Suvat_Solver_.Pages.UserLogin
         {
             HasPassword = true;
             HasUsername = true;
-            IncorUsername = false;
             ValidationFailed = false;
 
             if (string.IsNullOrWhiteSpace(TempUsername))
@@ -51,17 +48,13 @@ namespace AQA_A_Level_CS_NEA__Suvat_Solver_.Pages.UserLogin
 
             var foundUser = _context.User.FirstOrDefault(x => x.UserName == TempUsername && x.UserPass == HashedPassword);
 
-            if (foundUser != null)
-            {
-                LoginApproved = true;
-            }
-            else
+            if (foundUser == null)
             {
                 ValidationFailed = true;
             }
             if (!HasPassword || !HasUsername || foundUser == null)
             {
-                return RedirectToPage("/UserLogin/LoginPage", new { HasPassword, HasUsername, IncorUsername, ValidationFailed });
+                return RedirectToPage("/UserLogin/LoginPage", new { HasPassword, HasUsername, ValidationFailed });
             }
             else
             {
@@ -72,8 +65,8 @@ namespace AQA_A_Level_CS_NEA__Suvat_Solver_.Pages.UserLogin
         {
             using var sha = SHA256.Create();
             var AsBytes = Encoding.Default.GetBytes(Password + Username);
-            var hashed = sha.ComputeHash(AsBytes);
-            return Convert.ToBase64String(hashed);
+            var Hashed = sha.ComputeHash(AsBytes);
+            return Convert.ToBase64String(Hashed);
         }
     }
 }

@@ -10,27 +10,27 @@ namespace AQA_A_Level_CS_NEA__Suvat_Solver_.Pages.QuestionSolver
         public int UserId { get; set; }
         public SUVATValuesSelect SUVATValuesSelect { get; set; }
         public SUVATValues SUVATValues { get; set; }
-        public bool enteredvals { get; set; } = false;
-        public bool correctvals { get; set; } = true;
+        public bool EnteredVals { get; set; } = false;
+        public bool CorrectVals { get; set; } = true;
         public SUVATMethods SUVATMethods { get; set; }
-        public bool quadraticcalc { get; set; } = true;
+        public bool QuadraticCalc { get; set; } = true;
         public float SecondTVal { get; set; }
         public void OnGet()
         {
         }
         public IActionResult OnPost()
         {
-            float S = SUVATValues.SVal;
-            float U = SUVATValues.UVal;
-            float V = SUVATValues.VVal;
-            float A = SUVATValues.AVal;
-            float T = SUVATValues.TVal;
-            correctvals = true;
-            quadraticcalc = false;
-            if ((S == 0 && SUVATValuesSelect.SValSelect == true) || (T == 0 && SUVATValuesSelect.TValSelect == true)
-                || ((V==0 && SUVATValuesSelect.VValSelect == true) && (U==0 && SUVATValuesSelect.UValSelect == true)))
+            float SVal = SUVATValues.SVal;
+            float UVal = SUVATValues.UVal;
+            float VVal = SUVATValues.VVal;
+            float AVal = SUVATValues.AVal;
+            float TVal = SUVATValues.TVal;
+            CorrectVals = true;
+            QuadraticCalc = false;
+            if ((SVal == 0 && SUVATValuesSelect.SValSelect == true) || (TVal == 0 && SUVATValuesSelect.TValSelect == true)
+                || ((VVal == 0 && SUVATValuesSelect.VValSelect == true) && (UVal == 0 && SUVATValuesSelect.UValSelect == true)))
             {
-                correctvals = false;
+                CorrectVals = false;
                 return RedirectToPage("/QuestionSolver/EnterRecieveVals", new
                 {
                     SUVATValuesSelect.SValSelect,
@@ -38,68 +38,69 @@ namespace AQA_A_Level_CS_NEA__Suvat_Solver_.Pages.QuestionSolver
                     SUVATValuesSelect.VValSelect,
                     SUVATValuesSelect.AValSelect,
                     SUVATValuesSelect.TValSelect,
-                    enteredvals,
-                    correctvals,
+                    EnteredVals,
+                    CorrectVals,
                     UserId
                 });
             }
-            enteredvals = true;
+            EnteredVals = true;
             if (SUVATValuesSelect.SValSelect && SUVATValuesSelect.UValSelect && SUVATValuesSelect.VValSelect)
             {
-                SUVATValues.AVal = ((V * V) - (U * U)) / (2 * S);
-                //A = SUVATValues.AVal;
+                SUVATValues.AVal = (float)Math.Round(((VVal * VVal) - (UVal * UVal)) / (2 * SVal), 3);
+                //AVal = SUVATValues.AVal;
                 //SUVATMethods.AMethod = "Rearrange v² = u² +2as to a = (v² - u²) / 2s. Input the values to give" +
-                //    " (" + V + "² - " + U + "²) / 2*" + S + ". This equals to " + A + " m/s².";
-                SUVATValues.TVal = (2 * S) / (U + V);
+                //    " (" + VVal + "² - " + UVal + "²) / 2*" + SVal + ". This equals to " + AVal + " m/s².";
+                SUVATValues.TVal = (float)Math.Round((2 * SVal) / (UVal + VVal), 3);
             }
             else if (SUVATValuesSelect.SValSelect && SUVATValuesSelect.UValSelect && SUVATValuesSelect.AValSelect)
             {
-                SUVATValues.VVal = (float)(Math.Sqrt((U * U) + (2 * A * S)));
-                quadraticcalc = true;
-                SUVATValues.TVal = (float)((- U + Math.Sqrt((U * U) + (2 * A * S))) / A);
-                SecondTVal = (float)((- U - Math.Sqrt((U * U) + (2 * A * S))) / A);
+                SUVATValues.VVal = (float)Math.Round((Math.Sqrt((UVal * UVal) + (2 * AVal * SVal))), 3);
+                QuadraticCalc = true;
+                SUVATValues.TVal = (float)((-UVal + Math.Sqrt((UVal * UVal) + (2 * AVal * SVal))) / AVal);
+                SecondTVal = (float)Math.Round(((-UVal - Math.Sqrt((UVal * UVal) + (2 * AVal * SVal))) / AVal), 3);
             }
             else if (SUVATValuesSelect.SValSelect && SUVATValuesSelect.UValSelect && SUVATValuesSelect.TValSelect)
             {
-                SUVATValues.VVal = ((2 * S) / T) - U;
-                SUVATValues.AVal = (float)((S-(U*T))/(0.5*T*T));
+                SUVATValues.VVal = (float)Math.Round(((2 * SVal) / TVal) - UVal, 3);
+                SUVATValues.AVal = (float)Math.Round(((SVal - (UVal * TVal)) / (0.5 * TVal * TVal)), 3);
             }
             else if (SUVATValuesSelect.SValSelect && SUVATValuesSelect.VValSelect && SUVATValuesSelect.AValSelect)
             {
-                SUVATValues.UVal = (float)(Math.Sqrt((V * V)-(2 * A * S)));
-                quadraticcalc=true;
-                SUVATValues.TVal = (float)((- V + Math.Sqrt((V * V) - (2 * A * S))) / (0 - A));
-                SecondTVal = (float)((- V - Math.Sqrt((V * V) - (2 * A * S))) / (0 - A));
+                SUVATValues.UVal = (float)Math.Round((Math.Sqrt((VVal * VVal) - (2 * AVal * SVal))), 3);
+                QuadraticCalc = true;
+                SUVATValues.TVal = (float)Math.Round(((-VVal + Math.Sqrt((VVal * VVal) - (2 * AVal * SVal))) / (0 - AVal)), 3);
+                SecondTVal = (float)Math.Round(((-VVal - Math.Sqrt((VVal * VVal) - (2 * AVal * SVal))) / (0 - AVal)), 3);
             }
             else if (SUVATValuesSelect.SValSelect && SUVATValuesSelect.VValSelect && SUVATValuesSelect.TValSelect)
             {
-                SUVATValues.UVal = ((2 * S) / T) - V;
-                SUVATValues.AVal = (float)(((V * T)-S) / (0.5 * T * T));
+                SUVATValues.UVal = (float)Math.Round(((2 * SVal) / TVal) - VVal, 3);
+                SUVATValues.AVal = (float)Math.Round((((VVal * TVal) - SVal) / (0.5 * TVal * TVal)), 3);
             }
             else if (SUVATValuesSelect.SValSelect && SUVATValuesSelect.AValSelect && SUVATValuesSelect.TValSelect)
             {
-                SUVATValues.VVal = (float)((S + (0.5 * A * (T * T))) / (T));
-                SUVATValues.UVal = (float)((S - (0.5 * A * (T * T))) / (T));
+                SUVATValues.VVal = (float)Math.Round(((SVal + (0.5 * AVal * (TVal * TVal))) / (TVal)), 3);
+                SUVATValues.UVal = (float)Math.Round(((SVal - (0.5 * AVal * (TVal * TVal))) / (TVal)), 3);
             }
             else if (SUVATValuesSelect.UValSelect && SUVATValuesSelect.VValSelect && SUVATValuesSelect.AValSelect)
             {
-                SUVATValues.SVal = (((V * V) - (U * U)) / (2 * A));
-                SUVATValues.TVal = (V-U)/A;
+                SUVATValues.SVal = (float)Math.Round((((VVal * VVal) - (UVal * UVal)) / (2 * AVal)), 3);
+                SUVATValues.TVal = (float)Math.Round((VVal - UVal) / AVal, 3);
             }
             else if (SUVATValuesSelect.UValSelect && SUVATValuesSelect.VValSelect && SUVATValuesSelect.TValSelect)
             {
-                SUVATValues.SVal = (T / 2) * (U + V);
-                SUVATValues.AVal = ((V-U)/T);
+                SUVATValues.SVal = (float)Math.Round((TVal / 2) * (UVal + VVal), 3);
+                SUVATValues.AVal = (float)Math.Round(((VVal - UVal) / TVal), 3);
             }
             else if (SUVATValuesSelect.UValSelect && SUVATValuesSelect.AValSelect && SUVATValuesSelect.TValSelect)
             {
-                SUVATValues.SVal = (float)((U * T) + (0.5 * (A * T * T)));
-                SUVATValues.VVal = (U+A*T);
+                //incorrect decimal places (Aim for 3 dp)
+                SUVATValues.SVal = (float)Math.Round(((UVal * TVal) + (0.5 * (AVal * TVal * TVal))), 3);
+                SUVATValues.VVal = (float)Math.Round((UVal + AVal * TVal), 3);
             }
             else if (SUVATValuesSelect.VValSelect && SUVATValuesSelect.AValSelect && SUVATValuesSelect.TValSelect)
             {
-                SUVATValues.SVal = (float)((V * T) - (0.5 * (A * T * T)));
-                SUVATValues.UVal = (V-(A*T));
+                SUVATValues.SVal = (float)Math.Round(((VVal * TVal) - (0.5 * (AVal * TVal * TVal))), 3);
+                SUVATValues.UVal = (float)Math.Round((VVal - (AVal * TVal)), 3);
             }
 
 
@@ -121,8 +122,8 @@ namespace AQA_A_Level_CS_NEA__Suvat_Solver_.Pages.QuestionSolver
                 //SUVATMethods.VMethod,
                 //SUVATMethods.AMethod,
                 //SUVATMethods.TMethod,
-                quadraticcalc,
-                enteredvals,
+                QuadraticCalc,
+                EnteredVals,
                 UserId
             });
         }

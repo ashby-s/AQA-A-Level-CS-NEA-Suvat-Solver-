@@ -11,7 +11,7 @@
      <h2 class="mb-5">Login into your SUVAT Solver Account</h2>
      <hr />
      <p>Username: <input type="text" asp-for="TempUsername" placeholder="Enter your Username" /></p>
-        @if (!@Model.HasUsername|| @Model.IncorUsername)
+        @if (!@Model.HasUsername)
         {
                     <p class="errorText">Username is not valid</p>
         }

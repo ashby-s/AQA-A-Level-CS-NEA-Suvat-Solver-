@@ -16,10 +16,8 @@ namespace AQA_A_Level_CS_NEA__Suvat_Solver_.Pages.RevisionQuestions
         public float Answ5 { get; set; }
         public float Answ6 { get; set; }
         public float QuestCorrectAnsw { get; set; }
-        //public int CorrectAnsw { get; set; }
-        //public int TotalAnsw { get; set; }
-        public bool answvalid { get; set; }
-        public bool nextquestion { get; set; } = true;
+        public bool AnswValid { get; set; }
+        public bool NextQuestion { get; set; } = true;
         public float BtnAnswer { get; set; }
         public string Unit { get; set; }
         public string TempQuestDetails { get; set; }
@@ -42,7 +40,7 @@ namespace AQA_A_Level_CS_NEA__Suvat_Solver_.Pages.RevisionQuestions
             //CorrectAnsw = CorrectUser.UserCorrectAnsw;
             //TotalAnsw = CorrectUser.UserTotalAnsw;
 
-            if (nextquestion)
+            if (NextQuestion)
             {
                 List<UsertoCourses> UsertoCoursesList = new List<UsertoCourses>();
                 UsertoCoursesList = _context.UsertoCourses.ToList();
@@ -53,31 +51,31 @@ namespace AQA_A_Level_CS_NEA__Suvat_Solver_.Pages.RevisionQuestions
                 
 
                 Random rnd = new Random();
-                bool aqamaths = false;
-                bool aqaphys = false;
-                bool validquest = false;
+                bool AQAMaths = false;
+                bool AQAPhys = false;
+                bool ValidQuest = false;
 
                 if (UsertoCoursesList.Any(x => x.UserId == UserId && x.CourseId == 1))
                 {
-                    aqamaths = true;
+                    AQAMaths = true;
                 }
                 if (UsertoCoursesList.Any(x => x.UserId == UserId && x.CourseId == 2))
                 {
-                    aqaphys = true;
+                    AQAPhys = true;
                 }
-                while (!validquest)
+                while (!ValidQuest)
                 {
                     //ADD QUESTION BEFOREHAND
 
                     TempQuestId = rnd.Next(1,QuestionList.Count+1);
 
-                    if (QuestiontoCoursesList.Any(x => x.QuestionId == TempQuestId && x.CourseId == 1) && aqamaths)
+                    if (QuestiontoCoursesList.Any(x => x.QuestionId == TempQuestId && x.CourseId == 1) && AQAMaths)
                     {
-                        validquest = true;
+                        ValidQuest = true;
                     }
-                    else if (QuestiontoCoursesList.Any(x => x.QuestionId == TempQuestId && x.CourseId == 2) && aqaphys)
+                    else if (QuestiontoCoursesList.Any(x => x.QuestionId == TempQuestId && x.CourseId == 2) && AQAPhys)
                     {
-                        validquest = true;
+                        ValidQuest = true;
                     }
                 }
                 var QuestValues = _context.Question.FirstOrDefault(x => x.QuestionId == TempQuestId);
@@ -100,20 +98,20 @@ namespace AQA_A_Level_CS_NEA__Suvat_Solver_.Pages.RevisionQuestions
                 {
                     Unit = "s";
                 }
-                int btnplacement = rnd.Next(1, 7);
+                int BtnPlacement = rnd.Next(1, 7);
 
                 float[] UsedNums = new float[6];
 
                 for(int i = 0; i < 6; i++)
                 {
-                    bool uninum = false;
-                    while (!uninum)
+                    bool UniNum = false;
+                    while (!UniNum)
                     {
-                        uninum=true;
+                        UniNum=true;
                         float tempval = GenerateFloatVal(QuestCorrectAnsw);
                         if (i == 0 && QuestCorrectAnsw != tempval)
                         {
-                                uninum = true;
+                                UniNum = true;
                                 UsedNums[i] = tempval;
                         }
                         else if(i != 0 && QuestCorrectAnsw != tempval)
@@ -122,17 +120,17 @@ namespace AQA_A_Level_CS_NEA__Suvat_Solver_.Pages.RevisionQuestions
                             {
                                 if (UsedNums[j] == tempval)
                                 {
-                                    uninum = false;
+                                    UniNum = false;
                                 }
                             }
-                            if(uninum)
+                            if(UniNum)
                             {
                                 UsedNums[i] = tempval;
                             }
                         }
                         else
                         {
-                            uninum=false;
+                            UniNum=false;
                         }
                     }
                 }
@@ -145,7 +143,7 @@ namespace AQA_A_Level_CS_NEA__Suvat_Solver_.Pages.RevisionQuestions
                 Answ6 = UsedNums[5];
 
 
-                switch (btnplacement)
+                switch (BtnPlacement)
                 {
                     case 1:
                         Answ1 = QuestCorrectAnsw;
@@ -179,12 +177,12 @@ namespace AQA_A_Level_CS_NEA__Suvat_Solver_.Pages.RevisionQuestions
                 TempQuestSolved = QuestValues.QuestSolved;
                 if (QuestCorrectAnsw == BtnAnswer)
                 {
-                    answvalid = true;
+                    AnswValid = true;
                     CorrectUser.UserCorrectAnsw = CorrectUser.UserCorrectAnsw + 1;
                 }
                 else
                 {
-                    answvalid = false;
+                    AnswValid = false;
                 }
                 CorrectUser.UserTotalAnsw = CorrectUser.UserTotalAnsw + 1;
                 _context.User.Update(CorrectUser);
@@ -193,10 +191,10 @@ namespace AQA_A_Level_CS_NEA__Suvat_Solver_.Pages.RevisionQuestions
         }
         public IActionResult OnPost()
         {
-            nextquestion = true;
+            NextQuestion = true;
             return RedirectToPage("/RevisionQuestions/RevisionQuestions", new
             {
-                nextquestion,
+                NextQuestion,
                 UserId
             });
         }
@@ -204,24 +202,24 @@ namespace AQA_A_Level_CS_NEA__Suvat_Solver_.Pages.RevisionQuestions
         public float GenerateFloatVal(float MidNum)
         {
             Random rand = new Random();
-            double min = MidNum-3;
-            double max = MidNum+3;
-            double range = max - min;
-            float f=0;
+            double Min = MidNum-3;
+            double Max = MidNum+3;
+            double Range = Max - Min;
+            float TempVal=0;
 
-                double sample = rand.NextDouble();
-                double scaled = (sample * range) + min;
+                double Sample = rand.NextDouble();
+                double Scaled = (Sample * Range) + Min;
                 if (MidNum % 1 == 0)
                 {
-                    f = (float)Math.Round(scaled, 0);
+                    TempVal = (float)Math.Round(Scaled, 0);
                 }
                 else
                 {
-                    string tempscaled = MidNum.ToString();
-                    f = (float)Math.Round(scaled, tempscaled.Substring(tempscaled.IndexOf(".")).Length);
+                    string TempScaled = MidNum.ToString();
+                    TempVal = (float)Math.Round(Scaled, TempScaled.Substring(TempScaled.IndexOf(".")).Length-1);
                 }
 
-            return f;
+            return TempVal;
         }
 
     }

@@ -14,7 +14,7 @@
             <input class="mt-2" type="checkbox" asp-for="SUVATValuesSelect.AValSelect" placeholder="AValSelect" />  A (Acceleratiom) <br />
             <input class="mt-2" type="checkbox" asp-for="SUVATValuesSelect.TValSelect" placeholder="TValSelect" />  T (Time) <br />
         </div>
-    @if (!(@Model.correctnumval))
+    @if (!(@Model.CorrectNumVal))
     {
         <p class="errorText">Please select only <b>three</b> options</p>
     }

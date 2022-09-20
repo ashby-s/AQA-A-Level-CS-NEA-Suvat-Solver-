@@ -29,7 +29,7 @@
         }
 
         </div>
-        @if (!@Model.correctvals)
+        @if (!@Model.CorrectVals)
         {
             <p class="errorText">Displacement(S) or Time(T) <b>cannot</b> be 0.</p>
             <p class="errorText">Initial Velocity and Final Velocity <b>cannot</b> both be 0.</p>
@@ -39,7 +39,7 @@
     <br />
     <br />
  </form>
-@if (@Model.enteredvals)
+@if (@Model.EnteredVals)
 {
             <div class="container mt-5 mb-5 px-5 pt-5 pb-5 rounded-5 bg-light alert-light">
                 <div class="m-5">
@@ -56,7 +56,7 @@
                 }
                 else
                 {
-                <p>Initial Velocity Value that was Calculated:@if(Model.quadraticcalc){<strong>±</strong>} @Model.SUVATValues.UVal Metres per Seconds</p>
+                <p>Initial Velocity Value that was Calculated:@if(Model.QuadraticCalc){<strong>±</strong>} @Model.SUVATValues.UVal Metres per Seconds</p>
                  @*<p>Method: @Model.SUVATMethods.UMethod</p>*@
                 }
             }
@@ -68,7 +68,7 @@
                 }
                 else
                 {
-                <p>Final Velocity Value that was Calculated:@if(Model.quadraticcalc){<strong>±</strong>} @Model.SUVATValues.VVal Metres per Seconds</p>
+                <p>Final Velocity Value that was Calculated:@if(Model.QuadraticCalc){<strong>±</strong>} @Model.SUVATValues.VVal Metres per Seconds</p>
                  @*<p>Method: @Model.SUVATMethods.VMethod</p>*@
                 }
             }
@@ -86,7 +86,7 @@
                 else
                 {
                 <p>Time Value that was Calculated: @Model.SUVATValues.TVal Seconds</p>                         
-                @if(Model.quadraticcalc)
+                @if(Model.QuadraticCalc)
                 {
                     <p>Second Time Value that was Calculated: @Model.SecondTVal Seconds</p>
                 }

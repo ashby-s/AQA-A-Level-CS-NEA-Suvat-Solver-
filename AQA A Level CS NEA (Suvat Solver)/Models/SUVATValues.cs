@@ -2,7 +2,6 @@
 {
     public class SUVATValues
     {
-        //Make Local
         public float SVal { get; set; }
         public float UVal { get; set; }
         public float VVal { get; set; }

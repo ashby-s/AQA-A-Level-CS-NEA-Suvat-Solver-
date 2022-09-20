@@ -6,9 +6,9 @@
 <a class = " btn btn-outline-secondary small" style="float:right;" asp-route-UserId="@Model.UserId" asp-page="/Home-LoggedIn"> Return to Home Page?</a>
 <div class="mt-5 mb-5 px-5 pt-5 pb-5 rounded-5 bg-light alert-light">
     @{}
-    <h2>Practice Question Multiple-Choice:</h2>
+    <h2>Revision Question Multiple-Choice:</h2>
     <div class="text-center">
-        @if (@Model.nextquestion)
+        @if (@Model.NextQuestion)
         {
             @if(Model.TempQuestDiff == "Easy")
             {
@@ -52,7 +52,7 @@
         else
         {
 
-            @if (Model.answvalid)
+            @if (Model.AnswValid)
             {
                 <h4 class="text-white bg-success">Your Answer was Correct!</h4>
             }

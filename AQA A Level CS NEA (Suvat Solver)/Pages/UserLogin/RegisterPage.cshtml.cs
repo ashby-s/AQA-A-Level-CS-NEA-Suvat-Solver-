@@ -43,26 +43,26 @@ namespace AQA_A_Level_CS_NEA__Suvat_Solver_.Pages.UserLogin
             ValidPassword = true;
             SubjectChosen = true;
             UserList = _context.User.ToList();
-            int UserLength;
 
-            //Temp fix
-            if(TempUsername == null)
-            { UserLength = 0; 
-            }
-            else
-            {
-              UserLength = TempUsername.Length;
-            }
+            //int UserLength;
 
-            for (int i = 2; i < UserLength; i++)
-            {
-                string curchar = TempUsername.Substring(i, 1);
+            //if(TempUsername == null)
+            //{ UserLength = 0; 
+            //}
+            //else
+            //{
+            //  UserLength = TempUsername.Length;
+            //}
 
-                if(curchar==" ")
-                {
-                    HasUsername = false;
-                }
-            }
+            //for (int i = 2; i < UserLength; i++)
+            //{
+            //    string curchar = TempUsername.Substring(i, 1);
+
+            //    if(curchar==" ")
+            //    {
+            //        HasUsername = false;
+            //    }
+            //}
 
             if (!AQAMaths && !AQAPhys)
             {
@@ -126,8 +126,8 @@ namespace AQA_A_Level_CS_NEA__Suvat_Solver_.Pages.UserLogin
         {
             using var sha = SHA256.Create();
             var AsBytes = Encoding.Default.GetBytes(Password+Username);
-            var hashed = sha.ComputeHash(AsBytes);
-            return Convert.ToBase64String(hashed);
+            var Hashed = sha.ComputeHash(AsBytes);
+            return Convert.ToBase64String(Hashed);
         }
     }
 }

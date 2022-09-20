@@ -11,7 +11,7 @@ namespace AQA_A_Level_CS_NEA__Suvat_Solver_.Pages.QuestionSolver
         
         public int UserId { get; set; }
         public SUVATValuesSelect SUVATValuesSelect { get; set; }
-        public bool correctnumval { get; set; } = true;
+        public bool CorrectNumVal { get; set; } = true;
 
 
         public void OnGet()
@@ -29,8 +29,8 @@ namespace AQA_A_Level_CS_NEA__Suvat_Solver_.Pages.QuestionSolver
 
             if(totalvals != 3)
             {
-                correctnumval = false;
-                return RedirectToPage("/QuestionSolver/ValsSelect", new {correctnumval, UserId});
+                CorrectNumVal = false;
+                return RedirectToPage("/QuestionSolver/ValsSelect", new {CorrectNumVal, UserId});
             }
             else
             {
