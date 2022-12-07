@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="~/AQA_A_Level_CS_NEA__Suvat_Solver_.styles.css" asp-append-version="true" />
 </head>
 <body>
+    @*Generates a header using bootstrap + title of web application*@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow mb-3 text-center">
             <div class="container text-white text-center largeText">
@@ -16,12 +17,14 @@
             </div>
         </nav>
     </header>
+    @*Renders rest of web application page*@
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
 
+    @*Generates a footer using bootstrap + text that has been shown here*@
 <footer class="text-center text-white fixed-bottom bg-dark bg-opacity-50">
     <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
           &copy; 2022 - SUVAT Solver -- Created by Ashby Shiril

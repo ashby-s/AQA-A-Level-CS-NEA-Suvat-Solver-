@@ -10,7 +10,6 @@ namespace AQA_A_Level_CS_NEA__Suvat_Solver_.Pages
     {
         public int UserId { get; set; }
         public string TempUsername { get; set; }
-        //Username will already be assigned by passing a value using a form from a previous page
         public int CorrectAnsw { get; set; }
         public int TotalAnsw { get; set; }
 
@@ -23,13 +22,11 @@ namespace AQA_A_Level_CS_NEA__Suvat_Solver_.Pages
         
         public void OnGet()
         {
-            //User user = new User();
+            //Gets values from user table and passes over to cshtml for displaying
             var CorrectUser = _context.User.FirstOrDefault(x => x.UserId == UserId);
             TempUsername = CorrectUser.UserName;
             CorrectAnsw = CorrectUser.UserCorrectAnsw;
             TotalAnsw = CorrectUser.UserTotalAnsw;
-
         }
-
     }
 }

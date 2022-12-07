@@ -3,11 +3,13 @@
 @{
 }
 
+@*Button to return to home page*@
 <a class = " btn btn-outline-secondary small" style="float:right;" asp-route-UserId="@Model.UserId" asp-page="/Home-LoggedIn"> Return to Home Page?</a>
+
+@*Form to tick boxes for values that will be entered*@
 <form method="post" class="mt-5 mb-5 px-5 pt-5 pb-5 rounded-5 bg-light alert-light">
         <h1>Select the Three Values to be Inputted</h1>
         <div class="m-5">
-               @*Update*@
             <input class="mt-2" type="checkbox" asp-for="SUVATValuesSelect.SValSelect" placeholder="SValSelect" />  S (Displacement) <br />
             <input class="mt-2" type="checkbox" asp-for="SUVATValuesSelect.UValSelect" placeholder="UValSelect" />  U (Initial Velocity) <br />
             <input class="mt-2" type="checkbox" asp-for="SUVATValuesSelect.VValSelect" placeholder="VValSelect" />  V (Final Velocity) <br />
@@ -16,9 +18,11 @@
         </div>
     @if (!(@Model.CorrectNumVal))
     {
+        @*occurs if not 3 options have been selected*@
         <p class="errorText">Please select only <b>three</b> options</p>
     }
     <br />
+    @*button to enter options that are ticked*@
     <button class="btn btn-primary mt-1 ms-5" type="submit">Enter Values</button>
     <br />
     <br />

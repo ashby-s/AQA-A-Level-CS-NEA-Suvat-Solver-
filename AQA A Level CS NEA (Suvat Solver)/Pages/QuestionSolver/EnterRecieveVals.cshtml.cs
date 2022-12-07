@@ -27,6 +27,7 @@ namespace AQA_A_Level_CS_NEA__Suvat_Solver_.Pages.QuestionSolver
             float TVal = SUVATValues.TVal;
             CorrectVals = true;
             QuadraticCalc = false;
+            //Checks if any of the values by the user is illegal, if so, reloads page with warning
             if ((SVal == 0 && SUVATValuesSelect.SValSelect == true) || (TVal == 0 && SUVATValuesSelect.TValSelect == true)
                 || ((VVal == 0 && SUVATValuesSelect.VValSelect == true) && (UVal == 0 && SUVATValuesSelect.UValSelect == true)))
             {
@@ -44,16 +45,17 @@ namespace AQA_A_Level_CS_NEA__Suvat_Solver_.Pages.QuestionSolver
                 });
             }
             EnteredVals = true;
+            //using the values entered by the user, determines the equations to
+            //use for calculation and performs the aforementioned equations
             if (SUVATValuesSelect.SValSelect && SUVATValuesSelect.UValSelect && SUVATValuesSelect.VValSelect)
             {
                 SUVATValues.AVal = (float)Math.Round(((VVal * VVal) - (UVal * UVal)) / (2 * SVal), 3);
-                //AVal = SUVATValues.AVal;
-                //SUVATMethods.AMethod = "Rearrange v² = u² +2as to a = (v² - u²) / 2s. Input the values to give" +
-                //    " (" + VVal + "² - " + UVal + "²) / 2*" + SVal + ". This equals to " + AVal + " m/s².";
                 SUVATValues.TVal = (float)Math.Round((2 * SVal) / (UVal + VVal), 3);
             }
             else if (SUVATValuesSelect.SValSelect && SUVATValuesSelect.UValSelect && SUVATValuesSelect.AValSelect)
             {
+                //This equation means that the value can be both positive or negative,
+                //therefore displays a ± sign, and the second value for time
                 SUVATValues.VVal = (float)Math.Round((Math.Sqrt((UVal * UVal) + (2 * AVal * SVal))), 3);
                 QuadraticCalc = true;
                 SUVATValues.TVal = (float)((-UVal + Math.Sqrt((UVal * UVal) + (2 * AVal * SVal))) / AVal);
@@ -66,6 +68,8 @@ namespace AQA_A_Level_CS_NEA__Suvat_Solver_.Pages.QuestionSolver
             }
             else if (SUVATValuesSelect.SValSelect && SUVATValuesSelect.VValSelect && SUVATValuesSelect.AValSelect)
             {
+                //This equation means that the value can be both positive or negative,
+                //therefore displays a ± sign, and the second value for time
                 SUVATValues.UVal = (float)Math.Round((Math.Sqrt((VVal * VVal) - (2 * AVal * SVal))), 3);
                 QuadraticCalc = true;
                 SUVATValues.TVal = (float)Math.Round(((-VVal + Math.Sqrt((VVal * VVal) - (2 * AVal * SVal))) / (0 - AVal)), 3);
@@ -93,7 +97,6 @@ namespace AQA_A_Level_CS_NEA__Suvat_Solver_.Pages.QuestionSolver
             }
             else if (SUVATValuesSelect.UValSelect && SUVATValuesSelect.AValSelect && SUVATValuesSelect.TValSelect)
             {
-                //incorrect decimal places (Aim for 3 dp)
                 SUVATValues.SVal = (float)Math.Round(((UVal * TVal) + (0.5 * (AVal * TVal * TVal))), 3);
                 SUVATValues.VVal = (float)Math.Round((UVal + AVal * TVal), 3);
             }
@@ -103,7 +106,8 @@ namespace AQA_A_Level_CS_NEA__Suvat_Solver_.Pages.QuestionSolver
                 SUVATValues.UVal = (float)Math.Round((VVal - (AVal * TVal)), 3);
             }
 
-
+            //Reloads page with the values that have been calculated
+            //to be displayed
             return RedirectToPage("/QuestionSolver/EnterRecieveVals", new
             {
                 SUVATValuesSelect.SValSelect,
@@ -117,11 +121,6 @@ namespace AQA_A_Level_CS_NEA__Suvat_Solver_.Pages.QuestionSolver
                 SUVATValues.AVal,
                 SUVATValues.TVal,
                 SecondTVal,
-                //SUVATMethods.SMethod,
-                //SUVATMethods.UMethod,
-                //SUVATMethods.VMethod,
-                //SUVATMethods.AMethod,
-                //SUVATMethods.TMethod,
                 QuadraticCalc,
                 EnteredVals,
                 UserId

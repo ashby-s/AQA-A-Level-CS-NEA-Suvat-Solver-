@@ -10,6 +10,7 @@
     <div class="text-center">
         @if (@Model.NextQuestion)
         {
+            @*Has a bar showing a different colour for difficulty, based on the question asked*@
             @if(Model.TempQuestDiff == "Easy")
             {
                 <p class="mt-5 mb-5 rounded-5 bg-success alert-light text-white">Difficulty : Easy</p>
@@ -22,8 +23,11 @@
             {
                 <p class="mt-5 mb-5 rounded-5 bg-danger alert-light text-white">Difficulty : Hard</p>
             }
+            //Shows the question as an image
             <img class="mainImage mb-5" src= "@imagePath" asp-append-version="true" />
             <br />
+            //Shows the buttons with the answers, only one being the actual answer.
+            //Passes the answer to the the button, as well as the id of the question being asked
             <a class="btn btn-primary mt-1 btn-lg m-5" asp-area="" asp-route-TempQuestId="@Model.TempQuestId"
             asp-route-BtnAnswer="@Model.Answ1" asp-route-UserId="@Model.UserId" 
             asp-route-nextquestion="false" asp-page="/RevisionQuestions/RevisionQuestions">@Model.Answ1 @Model.Unit</a>
@@ -51,7 +55,8 @@
         }
         else
         {
-
+            //Determines whether question answered was correct or wrong,
+            //shown in a banner
             @if (Model.AnswValid)
             {
                 <h4 class="text-white bg-success">Your Answer was Correct!</h4>
@@ -61,14 +66,13 @@
                 <h4 class="text-white bg-danger">Your Answer was Incorrect</h4>
             }
 
+            //Shows Solution to the question that was asked
             <div class="mt-5 mb-5 px-5 pt-5 pb-5 rounded-5 bg-secondary alert-light text-white">
                 <h5>Solution for this Question:</h5>
                 <p class="largeText">@Model.TempQuestSolved</p>
 
             </div>
-
-            @*Place to Indicate whether they were correct or not*@
-            
+            //Button to ask the next question
             <form method="post" class="mt-5 mb-5 pt-5 pb-5">
                 <button class="btn btn-primary mt-1 btn-lg" type="submit">Next Question</button>
             </form>

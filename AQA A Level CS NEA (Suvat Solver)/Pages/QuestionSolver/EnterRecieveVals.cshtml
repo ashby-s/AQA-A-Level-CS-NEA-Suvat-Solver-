@@ -2,11 +2,13 @@
 @model AQA_A_Level_CS_NEA__Suvat_Solver_.Pages.QuestionSolver.EnterRecieveValsModel
 @{
 }
+@*This is a button that allows the user to return to the Vals Select page, to select other values for input*@
 <a class = " btn btn-outline-secondary small" style="float:right;" asp-route-UserId="@Model.UserId" asp-page="/QuestionSolver/ValsSelect"> Select Other Values?</a>
 <a class = " btn btn-outline-secondary small" asp-route-UserId="@Model.UserId" asp-page="/Home-LoggedIn"> Return to Home Page?</a>
 <form method="post" class="mt-5 mb-5 px-5 pt-5 pb-5 rounded-5 bg-light alert-light">
         <h1>Select the Three Values to be Inputted</h1>
         <div class="m-5">
+            @*Creates input boxes based on the options selected by the user in the previous page*@
         @if (@Model.SUVATValuesSelect.SValSelect)
         {
                         <p>Displacement(S) (m) Value: <input type="number" step="any" asp-for="SUVATValues.SVal" placeholder="Displacement(S) Value" /></p>
@@ -31,10 +33,14 @@
         </div>
         @if (!@Model.CorrectVals)
         {
+           @* If the value inputted by the user is not Valid, 
+           e.g (displacement or time = 0 or final and initial velocity both being 0),
+           displays an error*@
             <p class="errorText">Displacement(S) or Time(T) <b>cannot</b> be 0.</p>
             <p class="errorText">Initial Velocity and Final Velocity <b>cannot</b> both be 0.</p>
         }
     <br />
+    @*button to enter the values into main program code for processing*@
     <button class="btn btn-primary mt-1 ms-5" type="submit">Enter Values</button>
     <br />
     <br />
@@ -42,45 +48,49 @@
 @if (@Model.EnteredVals)
 {
             <div class="container mt-5 mb-5 px-5 pt-5 pb-5 rounded-5 bg-light alert-light">
+                <p style="float:right;">Values are in 3 decimal places (When Applicable)</p>
                 <div class="m-5">
+                    @*displays the values that have been calculated by the main program code
+                        Only displays those values, all other values are not displayed
+                        this is determined by the values that the user had selected initially
+                    *@
             @if (!@Model.SUVATValuesSelect.SValSelect)
             {
                  <p>Displacement Value that was Calculated: @Model.SUVATValues.SVal Metres</p>
-                 @*<p>Method: @Model.SUVATMethods.SMethod</p>*@
             }
             @if (!@Model.SUVATValuesSelect.UValSelect)
             {
                 @if (Double.IsNaN(Model.SUVATValues.UVal))
                 {
+                    @*Displays if value is not a number (cannot be calculated)*@
                     <p>Value for Initial Velocity Cannot Be Calculated</p>
                 }
                 else
                 {
-                <p>Initial Velocity Value that was Calculated:@if(Model.QuadraticCalc){<strong>±</strong>} @Model.SUVATValues.UVal Metres per Seconds</p>
-                 @*<p>Method: @Model.SUVATMethods.UMethod</p>*@
+                <p>Initial Velocity Value that was Calculated: @if(Model.QuadraticCalc){<strong>±</strong>} @Model.SUVATValues.UVal Metres per Seconds</p>
                 }
             }
             @if (!@Model.SUVATValuesSelect.VValSelect)
             {
-                @if (Double.IsNaN(Model.SUVATValues.UVal))
+                @if (Double.IsNaN(Model.SUVATValues.VVal))
                 {
+                    @*Displays if value is not a number (cannot be calculated)*@
                     <p>Value for Final Velocity Cannot Be Calculated</p>
                 }
                 else
                 {
-                <p>Final Velocity Value that was Calculated:@if(Model.QuadraticCalc){<strong>±</strong>} @Model.SUVATValues.VVal Metres per Seconds</p>
-                 @*<p>Method: @Model.SUVATMethods.VMethod</p>*@
+                <p>Final Velocity Value that was Calculated: @if(Model.QuadraticCalc){<strong>±</strong>} @Model.SUVATValues.VVal Metres per Seconds</p>
                 }
             }
             @if (!@Model.SUVATValuesSelect.AValSelect)
             {
                  <p>Acceleration Value that was Calculated: @Model.SUVATValues.AVal Metres per Seconds²</p>
-                 @*<p>Method: @Model.SUVATMethods.AMethod</p>*@
             }
             @if (!@Model.SUVATValuesSelect.TValSelect)
             {
-                @if (Double.IsNaN(Model.SUVATValues.UVal))
+                @if ((Double.IsNaN(Model.SUVATValues.UVal))||(Double.IsNaN(Model.SUVATValues.VVal)))
                 {
+                    @*Displays if value is not a number (cannot be calculated)*@
                     <p>Value for Time Cannot Be Calculated</p>
                 }
                 else
@@ -88,9 +98,9 @@
                 <p>Time Value that was Calculated: @Model.SUVATValues.TVal Seconds</p>                         
                 @if(Model.QuadraticCalc)
                 {
+                    @*Displays if there are two values for time)*@
                     <p>Second Time Value that was Calculated: @Model.SecondTVal Seconds</p>
                 }
-                @*<p>Method: @Model.SUVATMethods.TMethod</p>*@
                 }          
             }
                 </div>

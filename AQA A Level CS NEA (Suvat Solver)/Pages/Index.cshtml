@@ -3,10 +3,12 @@
 @{
     ViewData["Title"] = "Home page";
 }
-
+@*Application startups on this page*@
 <div class="text-center mt-5 mb-5">
     <h1 class="display-4">Welcome To SUVAT Solver</h1>
     <p>The Revision Website to Help You Develop Skills To Better Answer SUVAT Based Questions!</p>
+    @*This button below leads to registration page*@
     <a class="btn btn-primary mt-1 btn-lg" asp-area="" asp-page="/UserLogin/RegisterPage">Register</a>
+    @*This button below leads to Login Page*@
     <a class="btn  btn-outline-secondary mt-1" asp-area="" asp-page="/UserLogin/LoginPage">Login</a>
 </div>

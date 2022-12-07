@@ -34,18 +34,19 @@ namespace AQA_A_Level_CS_NEA__Suvat_Solver_.Pages.RevisionQuestions
         public void OnGet()
         {
             User user = new User();
-
+            //gathers details for the user that is using the application
             var CorrectUser = _context.User.FirstOrDefault(x => x.UserId == UserId);
-
-            //CorrectAnsw = CorrectUser.UserCorrectAnsw;
-            //TotalAnsw = CorrectUser.UserTotalAnsw;
 
             if (NextQuestion)
             {
+                //Used to determine what questions to use, gathers details depending
+                //on the user using the web application
                 List<UsertoCourses> UsertoCoursesList = new List<UsertoCourses>();
                 UsertoCoursesList = _context.UsertoCourses.ToList();
+                //Gathers details for all the questions into a list
                 List<Question> QuestionList = new List<Question>();
                 QuestionList = _context.Question.ToList();
+                //gathers all the the links between each question to courses
                 List<QuestiontoCourses> QuestiontoCoursesList = new List<QuestiontoCourses>();
                 QuestiontoCoursesList = _context.QuestiontoCourses.ToList();
                 
@@ -55,6 +56,7 @@ namespace AQA_A_Level_CS_NEA__Suvat_Solver_.Pages.RevisionQuestions
                 bool AQAPhys = false;
                 bool ValidQuest = false;
 
+                //Determines whether the user does Maths course, Physics course or both
                 if (UsertoCoursesList.Any(x => x.UserId == UserId && x.CourseId == 1))
                 {
                     AQAMaths = true;
@@ -65,8 +67,8 @@ namespace AQA_A_Level_CS_NEA__Suvat_Solver_.Pages.RevisionQuestions
                 }
                 while (!ValidQuest)
                 {
-                    //ADD QUESTION BEFOREHAND
-
+                    //Randomises the next question to be asked
+                    //Makes sure question is linked to courses that user does
                     TempQuestId = rnd.Next(1,QuestionList.Count+1);
 
                     if (QuestiontoCoursesList.Any(x => x.QuestionId == TempQuestId && x.CourseId == 1) && AQAMaths)
@@ -78,10 +80,12 @@ namespace AQA_A_Level_CS_NEA__Suvat_Solver_.Pages.RevisionQuestions
                         ValidQuest = true;
                     }
                 }
+                //Gathers details for that question from what was previously gathered
                 var QuestValues = _context.Question.FirstOrDefault(x => x.QuestionId == TempQuestId);
                 QuestCorrectAnsw = QuestValues.AnswTrue;
                 TempQuestDiff = QuestValues.Difficulty;
                 TempQuestDetails = QuestValues.QuestDetails;
+                //Determines what unit that the question uses
                 if (QuestValues.AnswType == 'S')
                 {
                     Unit = "m";
@@ -98,10 +102,14 @@ namespace AQA_A_Level_CS_NEA__Suvat_Solver_.Pages.RevisionQuestions
                 {
                     Unit = "s";
                 }
+
+                //Randomises the location that the answer will be in, button-wise
                 int BtnPlacement = rnd.Next(1, 7);
 
                 float[] UsedNums = new float[6];
 
+                //Ensures that each randomised value for what the other buttons should display
+                // is of the same decimal places by calling a subroutine
                 for(int i = 0; i < 6; i++)
                 {
                     bool UniNum = false;
@@ -135,6 +143,7 @@ namespace AQA_A_Level_CS_NEA__Suvat_Solver_.Pages.RevisionQuestions
                     }
                 }
 
+                //Places these values into variables for buttons
                 Answ1 = UsedNums[0];
                 Answ2 = UsedNums[1];
                 Answ3 = UsedNums[2];
@@ -142,7 +151,7 @@ namespace AQA_A_Level_CS_NEA__Suvat_Solver_.Pages.RevisionQuestions
                 Answ5 = UsedNums[4];
                 Answ6 = UsedNums[5];
 
-
+                //Places the correct answer in the correct button
                 switch (BtnPlacement)
                 {
                     case 1:
@@ -172,16 +181,19 @@ namespace AQA_A_Level_CS_NEA__Suvat_Solver_.Pages.RevisionQuestions
             }
             else
             {
+                //Checks whether the answer given was correct
                 var QuestValues = _context.Question.FirstOrDefault(x => x.QuestionId == TempQuestId);
                 QuestCorrectAnsw = QuestValues.AnswTrue;
                 TempQuestSolved = QuestValues.QuestSolved;
                 if (QuestCorrectAnsw == BtnAnswer)
                 {
+                    //If correct, adds one to user total answ + shows answer was correct
                     AnswValid = true;
                     CorrectUser.UserCorrectAnsw = CorrectUser.UserCorrectAnsw + 1;
                 }
                 else
                 {
+                    //Shows answer was incorrect
                     AnswValid = false;
                 }
                 CorrectUser.UserTotalAnsw = CorrectUser.UserTotalAnsw + 1;
@@ -191,6 +203,7 @@ namespace AQA_A_Level_CS_NEA__Suvat_Solver_.Pages.RevisionQuestions
         }
         public IActionResult OnPost()
         {
+            //reloads page, showing the next question
             NextQuestion = true;
             return RedirectToPage("/RevisionQuestions/RevisionQuestions", new
             {
@@ -201,6 +214,8 @@ namespace AQA_A_Level_CS_NEA__Suvat_Solver_.Pages.RevisionQuestions
 
         public float GenerateFloatVal(float MidNum)
         {
+            //This subroutine ensures that all the
+            //values are of the same decimal places
             Random rand = new Random();
             double Min = MidNum-3;
             double Max = MidNum+3;
@@ -211,10 +226,12 @@ namespace AQA_A_Level_CS_NEA__Suvat_Solver_.Pages.RevisionQuestions
                 double Scaled = (Sample * Range) + Min;
                 if (MidNum % 1 == 0)
                 {
+                //If to 0 decimal places, generates whole numbers
                     TempVal = (float)Math.Round(Scaled, 0);
                 }
                 else
                 {
+                //if not 0 decimal places, generates numbers to required decimal places
                     string TempScaled = MidNum.ToString();
                     TempVal = (float)Math.Round(Scaled, TempScaled.Substring(TempScaled.IndexOf(".")).Length-1);
                 }

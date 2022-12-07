@@ -6,18 +6,27 @@
 
 <a class = " btn btn-outline-secondary small mb-5 text-center" asp-page="/Index">Log Out</a>
 <div id="main-block" class="text-center">
-            <h2>Hey @Model.TempUsername!</h2>
-            <h5 class="m-5">
-                Please Select Your What Feature to Use Below
-            </h5>
-            <a class="btn btn-primary mt-1 btn-lg m-5" asp-area=""  asp-route-UserId="@Model.UserId" asp-page="/QuestionSolver/ValsSelect">Question Solver</a>
-            <a class="btn btn-primary mt-1 btn-lg m-5" asp-area=""  asp-route-UserId="@Model.UserId" asp-page="/RevisionQuestions/RevisionQuestions">Revsion Questions</a>
+    @*Shows username of user that is logged in*@
+    <h2>Hey @Model.TempUsername!</h2>
+    <h5 class="m-5">
+        Please Select Your What Feature to Use Below
+    </h5>
+    @*Button that goes to Question Solver Page*@
+    <a class="btn btn-primary mt-1 btn-lg m-5" asp-area=""  asp-route-UserId="@Model.UserId" asp-page="/QuestionSolver/ValsSelect">Question Solver</a>
+    @*Button that goes to Revision Questions Page*@
+    <a class="btn btn-primary mt-1 btn-lg m-5" asp-area=""  asp-route-UserId="@Model.UserId" asp-page="/RevisionQuestions/RevisionQuestions">Revsion Questions</a>
 </div>
 
 <div id="sidebar">
-            <h2>Revision Question Stats:</h2>
+    @*Shows user's stats from table*@
+    <h2>Revision Question Stats:</h2>
 
-            <h5 class="mt-5 mb-5">Total Correct Answers: @Model.CorrectAnsw</h5>
-            <h5 class="mt-5 mb-5">Total Answered: @Model.TotalAnsw</h5>
-            
+    <h5 class="mt-5 mb-5">Total Correct Answers: @Model.CorrectAnsw</h5>
+    <h5 class="mt-5 mb-5">Total Answered: @Model.TotalAnsw</h5>
+
+    <br />
 </div>
+
+
+
+
